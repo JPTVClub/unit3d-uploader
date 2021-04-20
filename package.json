@@ -1,0 +1,21 @@
+{
+  "name": "unit3duploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "unit3dupload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "bl4ck-jptv.club",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "request": "^2.88.2",
+    "restler": "^3.4.0",
+    "urllib": "^2.37.1"
+  },
+  "devDependencies": {
+    "form-data": "^4.0.0"
+  }
+}
