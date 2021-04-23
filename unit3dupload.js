@@ -1,7 +1,9 @@
+const dotenv = require('dotenv').config();
 const request = require('request');
 const fs = require('fs');
 const { type_id } = require('./elpers');
 const settings = require('./settings.json');
+const custom_settings = require('./custom_settings.json');
 const path = require('path');
 const package = require('./package.json');
 
@@ -11,32 +13,42 @@ let args;
 
 function main() {
     parse_arguments();
-    //upload();
+    upload();
 }
 
 function parse_arguments() {
     arg_amount = process.argv.length-2;
     args = process.argv.splice(/ +/).slice(2);
-    switch (args[0]) {
-        case '--version':
-            console.log(package.version);
-            process.exit(0);
-        case '--help':
-            let help_text = fs.readFileSync('help_text.txt', 'utf-8');
-            console.log(help_text);
-            process.exit(1);
+    for (let i=0; i<arg_amount; i++) {
+        switch (args[i]) {
+            case '--version':
+                console.log(package.version);
+                process.exit(0);
+            case '--help':
+                let help_text = fs.readFileSync('help_text.txt', 'utf-8');
+                console.log(help_text);
+                process.exit();
+            case '-t':
+                torrent_file = args[i+1];
+                i++;
+                break;
+        }
     }
 }
 
 function upload() {
 
+    let url = '"https://'+settings.url+'/api/torrents/upload?api_token='+settings.apitoken;
+    delete settings['url'];
+
     let bodyFormData = {
         torrent: fs.createReadStream(path.join(__dirname, torrent_file)),
-        ...settings
+        ...settings,
+        ...custom_settings
     }
 
     request.post({
-        url: 'https://dev33.jptv.club/api/torrents/upload?api_token=IXbgQuRbDesuWLd2rS894UDxs7eIQP8ky90xnCiFehfxxsWefPFQTKO3rHSnB1OWVyjZd250Hdf50EiSTGker3gJ620FvlxokOFB',
+        url: url,
         formData: bodyFormData
     }, function optionalCallback(err, httpResponse, body) {
         if (err) {

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "request": "^2.88.2",
     "restler": "^2.0.1",
     "urllib": "^2.37.1"

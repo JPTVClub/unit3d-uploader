@@ -1,24 +1,34 @@
 Unit3D Uploader by bl4ck and eyAltorCu
 This tool allows you to upload a .torrent file to a Unit3D site. An API token must be provided for the uploader to work.
 
+Settings Priority (Highest to lowest):
+    - Command line argument settings
+    - Custom settings file
+    - Default settings
+
 Arguments:
-    --help
-        Prints this help text
     --defaults
-        Prints out the current default settings.
-    --token
+        Prints out the current default settings
+    --default_token
         Sets the default API token
-    -t, -T
+        Example:
+            unit3duploader --default_token <token>
+    --default_url
+        Sets the default upload url endpoint for a unit3d site
+        Example:
+            unit3duploader --default_url unit3d.site
+    --default_userid
+        Sets the default user ID
+        Example:
+            unit3duploader --default_userid 0000
+    -tf, -T
         Torrent file to upload
-    -s, -S
+    -sf, -S
         Custom settings file
-    -d, -D
+    -desc, -D
         Text file with description
 
-Example Usage:
-
-    unit3duploader -token <API Token>
-        Will set the api token to use each time the uploader is ran
+Example Use Cases:
 
     unit3duploader -t file.torrent -s mysettings.json -d desc.txt
-        Will upload the torrent file 
+        Will upload the torrent file using the custom specified settings and description
