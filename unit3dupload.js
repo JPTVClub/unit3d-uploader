@@ -38,11 +38,12 @@ function parse_arguments() {
 
 function upload() {
 
-    let url = '"https://'+settings.url+'/api/torrents/upload?api_token='+settings.apitoken;
+    let url = 'https://'+settings.url+'/api/torrents/upload?api_token='+settings.apitoken;
     delete settings['url'];
 
     let bodyFormData = {
         torrent: fs.createReadStream(path.join(__dirname, torrent_file)),
+        _user_id: 0,
         ...settings,
         ...custom_settings
     }
