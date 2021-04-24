@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config();
 const request = require('request');
 const fs = require('fs');
-const { type_id } = require('./elpers');
+const {JPTV_type_id,default_categories,default_type,default_resolution} = require('./elpers');
 const settings = require('./settings.json');
 const custom_settings = require('./custom_settings.json');
 const path = require('path');
@@ -11,15 +11,17 @@ let torrent_file;
 let arg_amount;
 let args;
 
+
+
 function main() {
     parse_arguments();
     upload();
 }
 
 function parse_arguments() {
-    arg_amount = process.argv.length-2;
+    arg_amount = process.argv.length - 2;
     args = process.argv.splice(/ +/).slice(2);
-    for (let i=0; i<arg_amount; i++) {
+    for (let i = 0; i < arg_amount; i++) {
         switch (args[i]) {
             case '--version':
                 console.log(package.version);
@@ -29,7 +31,7 @@ function parse_arguments() {
                 console.log(help_text);
                 process.exit();
             case '-t':
-                torrent_file = args[i+1];
+                torrent_file = args[i + 1];
                 i++;
                 break;
         }
@@ -38,7 +40,7 @@ function parse_arguments() {
 
 function upload() {
 
-    let url = 'https://'+settings.url+'/api/torrents/upload?api_token='+settings.apitoken;
+    let url = 'https://' + settings.url + '/api/torrents/upload?api_token=' + settings.apitoken;
     delete settings['url'];
 
     let bodyFormData = {
